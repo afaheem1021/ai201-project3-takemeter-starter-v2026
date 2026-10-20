@@ -281,17 +281,47 @@ decided them (72 of 307 rows).
 
 <!-- Your starting model, your settings, and anything you changed and why. -->
 
-**Base model:**
+**Base model:** `distilbert-base-uncased` (the notebook default).
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Settings:** 3 epochs, learning rate 2e-5, batch size 16, max length 128
+tokens, seed 42. 70/15/15 stratified split done by the notebook. I never split
+`labels.csv` myself.
 
-**Anything I changed from the defaults, and why:**
+**Device:** **`cpu`** (torch 2.14.1+cpu, Windows 11, Python 3.12.10), and
+`results.json` records the same. I ran sections 1–5 in this repo's `.venv`
+kernel. Sections 6–7 are unit 6 and weren't run.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+**Anything I changed from the defaults, and why:** No hyperparameters. The
+only edits to the notebook were `LABELS = ["evidence", "experience",
+"opinion"]` and my name/email. With 307 rows I didn't have a reason to touch
+the settings before seeing a single result, and changing them blind would
+just be guessing.
 
+One related check on `MAX_LENGTH`: I counted tokens with the DistilBERT
+tokenizer. **65 of 307 comments (21%) are longer than 128 tokens** and get
+cut off; the longest is 228. It isn't spread evenly: 36% of `experience`
+rows, 23% of `evidence` rows and 12% of `opinion` rows get truncated. That
+makes sense, since stories run long and `evidence` often puts its link or
+footnote at the very end (`[0] https://…`). So the labels that depend most on
+the end of the comment are the ones losing it. I kept the default rather than
+change it before seeing results, and I'm noting it here as a likely suspect
+for unit 6.
 
+**Split sizes:** train 214 · val 46 · test 47
+
+| Label | train | val | test |
+|---|---|---|---|
+| `evidence` | 53 | 12 | 12 |
+| `experience` | 56 | 12 | 12 |
+| `opinion` | 105 | 22 | 23 |
+
+Every label has at least 12 in the test split, above the notebook's 8-example
+warning. That's what the 50-row floor in criterion 4 was for. 12 is still
+small, though: one post moves a label's recall by about 8 points, so expect
+per-label F1 to move between seeds next unit.
+
+`results.json` and `test_split.csv` are committed. Per the brief, I haven't
+compared the numbers to my criteria yet. That's unit 6.
 
 ---
 

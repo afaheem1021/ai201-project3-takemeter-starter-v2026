@@ -1,0 +1,142 @@
+text,label,note
+"The Top Gear video mentions that kind of recharge time using an external system (though they do claim that they are trying to get it down to 30min).
+
+I've seen some claims that the gas is stored at a pressure of 10000 psi/690 bar in a 200 l tank. If that's true, then that is a gas volume of 138000 l. A commercial, stationary scuba compressor compresses around 850 l/min [0] to 350 bar. A compressor like that would take around 160 min just to compress 138000 l to 350 bar (so significantly less than 690 bar), is a _large_ appliance, and _loud_. Compressing gas quickly also produces heat. An on-board compressor seems quite unrealistic to me unless I'm missing something.
+
+[0] https://www.bauer-kompressoren.de/en_en/pe-ve1",evidence,pre-labelled (AI); keyword sample (evidence)
+That's absurdly low IMO. I can't imagine it'll go for less than a mil. I reckon $1.5M - $3M,opinion,pre-labelled (AI); random sample
+"Yeah, I believe these are the requirements for PERM: https://www.ecfr.gov/current/title-20/chapter-V/part-656/subpart-C/section-656.17
+
+They are wildly out of date compared to how jobs are actually filled.  Regardless of any other enforcement actions, this needs to be fixed.
+
+I don't think it even needs congressional approval to change these.  The DoL could do it.",evidence,pre-labelled (AI); keyword sample (evidence)
+"Target learned the security lesson the hard way
+
+About the 2013 Target data breach, https://krebsonsecurity.com/2015/09/inside-target-corp-days-after-2013-breach/",evidence,pre-labelled (AI); extra evidence batch
+Meanwhile Samsung doesn't even need hackers - a firmware update on consumer devices is enough: https://www.tomshardware.com/service-providers/samsungs-disastrous-firmware-update-breaks-refrigerators-ahead-of-south-korean-holiday-customers-complain-of-non-functioning-units-food-spoilage-ahead-of-three-day-celebration,evidence,pre-labelled (AI); extra evidence batch
+"> Dermatologists are hit or miss.
+
+That's even relative to the condition you have. The right match of doctor to condition gives you the right treatment. But the same doctor facing a different condition might be clueless. From that angle, the whole situation looks less weird.
+
+The quality of a doctor then could be measured in how many conditions they are good at, maybe weighted by likelihood of occurrence, as well as how self aware they are about whether they have a clue or not.
+
+A corrollary is that a single data point does not tell you much. ""Go to this dermatologist, they are great"" is only good advice if you have the same condition as the recommender as their sample size is likely very small.",opinion,pre-labelled (AI); random sample
+"The social media image for that page: https://www.danfoss.com/media/11988/nbu8570_clean.jpg
+
+So we spill cold air on the floor and heat the place with AC, then talk about low margins and having to save energy costs. Does anyone see the issue?",evidence,pre-labelled (AI); keyword sample (evidence)
+"Oh, I think you're so right. I heard ton of people online assuming that Rust could help to catch any freaking bug, and when they noticed that - well, it obviously doesn't - ah, then it's just crap or hype.",opinion,pre-labelled (AI); random sample
+"I want to know: does the HN commentariat think that brain drain is a problem or not.  Elsewhere in this thread we have people urging that we do drain the rest of the world's brains to ""win the talent war"" [0].
+
+Now, I can totally see that maybe draining our adversaries' brains can be a good thing, unless it's a way of bringing in a fifth column, in which case... no.  And it's definitely not good for countries we're on good terms with -- there that ""win the talent war"" comment shocks the conscience as a thoughtless, unnuanced, jingoist-but-dumb, and immoral/destructive as to our allies comment.
+
+Consistency was not the issue.  The question was: what has changed that so few seem to care about brain drain as a negative externality?
+
+[0] https://news.ycombinator.com/item?id=50009507",opinion,pre-labelled (AI); extra evidence batch; link to another comment as a reference
+"> 43% is a hell of a difference from the 100% you were claiming it was impossible to beat!
+
+Again, Apple has no inventory, shipping, supply chain, etc., costs. I was referring to things with inventory, like what Amazon sells. That's a lot of COGS there.",opinion,pre-labelled (AI); keyword sample (evidence)
+"I got a night guard. The mold was taken wrong. Every time I wore it at night it would shift my teeth a little temporarily and my bite would be off for several hours after I work up, like half the day... Went to the same dentist that made it for me and he just kept trying to adjust my bite and drilling instead of making a new mold. I finally got upset at them and they are making me a new one. These guys are usually morons.",experience,pre-labelled (AI); keyword sample (experience)
+"I don't buy your claim of ""high-paying"". If you don't pay as per US resident and urban standards, good domestic candidates obviously won't bother applying.",opinion,pre-labelled (AI); random sample
+"They phrase it as surcharge sometimes, or just cash vs credit prices at most gas stations. Toilet paper isn't 3-5% of revenue.",opinion,pre-labelled (AI); random sample
+"Operating margin fell from 16% to ~2% over the last 10 years and will probably be negative in 2026 and 2027. They have a big cash pile to burn through but they’re spending it on ummm “a flying car,” humanoid robots, and an AI fab. They’re fucked.",evidence,pre-labelled (AI); keyword sample (evidence)
+"This is a techne/metis split. You would probably like this [0] chapter about the ""rightness"" struggle between engineering and service at Xerox. Some paralells to A Big Little Idea called Legibility from Ribbonfarm, too.
+
+[0] https://books.worksinprogress.co/book/maintenance-of-everything/communities-of-practice/the-soul-of-maintaining-a-new-machine/3?redirect-latest=1",opinion,"pre-labelled (AI); random sample; link is a reading recommendation, the claim does not rest on it"
+"Sanboxing makes it more suitable.
+
+yt-dlp executes code from the website to get the exact download URLs and header values. The websites obfuscate these to prevent downloading. Running arbitrary 3rd party code in Node or Bun might work, but is risky, especially when that code could potentially come from one of the many ads on that video website.",opinion,"pre-labelled (AI); random sample; explains how a named tool works - no link, figure or quote"
+"Probably correct analysis. It also means means that places they simply do not operate in (like Switzerland) they are completely meaningless.
+
+Luckily local alternative(galaxus/digitec) is so much better, reviews and rating are trustable, each category has 1000s of items, services and communication stellar etc. that for me, that name symbolises just some not-so-cheap cloud I used to work with some years ago.",opinion,pre-labelled (AI); keyword sample (experience)
+"Hmm, I wonder if the difference is that I’m working on an existing large codebase that wasn’t originally written with AI. It might be picking up practices from the surrounding code. It’s happily using the same crates that are already there, and occasionally bringing in new ones. Some of the code is “weird” but I also learn from it.",experience,pre-labelled (AI); random sample
+"It's literally baked into the H1B law was confirmed by a congressional report on the program: https://www.uscis.gov/sites/default/files/document/reports/OLA_Signed_H-1B_Characteristics_Congressional_Report_FY2023.pdf
+
+> Just pay American workers more.
+
+If we set aside software engineering - 40% of rural doctors in the US are here on H1B visas. There's not a ""pay them more"" button we can hit that generates more domestic doctors, especially not in under 10 years. All you'd do is compete amongst a limited supply.",evidence,pre-labelled (AI); keyword sample (evidence)
+"Not OP but I have. And I agree with them. Trying to acclimate and “do as the others do” has brought me nothing but misery, and greatly increased anxiety.
+
+People are different. Just accept it.",opinion,pre-labelled (AI); keyword sample (experience)
+"https://sixcolors.com/post/2026/10/third-party-homeview-apps-think-carplay/
+
+> If you use apps that play audio or video and support CarPlay, though, you’re in luck: HomeView supports those apps, and just those apps, via projection from your iPhone. So if you’re a fan of Overcast or Spotify, you’re in luck.",evidence,pre-labelled (AI); keyword sample (evidence)
+"BRCA is one risk factor for certain cancers.  You can get genetic counseling to understand your cancer risk looking at this and other markers.
+
+In this context, though, we're talking about measuring the actual cancer (including the tumor's mutations) to determine what therapies it is likely to be responsive to.
+
+e.g. this: https://www.cancer.gov/about-cancer/treatment/types/biomarker-testing-cancer-treatment   not this: https://www.cancer.gov/about-cancer/causes-prevention/genetics/genetic-testing-fact-sheet",evidence,pre-labelled (AI); keyword sample (evidence)
+"I use Opus 5.5 at work.
+
+I use MiMov2.6Pro, DeepSeekv4.1Flash, GLM5.3, Hy4, Qwen3.8 and KimiK3 at home.   Opus5.5 is not a game changer.",experience,pre-labelled (AI); random sample
+"Maybe we just have different experiences, but I've experienced a huge amount of friction trying to enable features that cost something resembling 0.5% of fleet performance, even when they provide massive benefits. 12% loss would be laughed out of the room.
+
+I agree that this is an impressive feat. I also don't see why an equivalent for rust would be adopted.",experience,pre-labelled (AI); extra evidence batch
+"My wife developed lactose and gluten intolerance around 40.  My 14 year old daughter has been a vegetarian for the last 9 months or so. My other two kids eat vegetables fine, but really prefer meat based dishes. As the primary meal maker in the family I’ve come to dislike making family meals anymore. It’s too much of a chore screening every ingredient and item for dairy wheat and animal products like just basic gelatin and finding alternatives or making dedicated side dishes for certain issues. I used to like making new dishes and trying new things but now it’s a small rotation to keep people fed. We can’t even reliably find a restaurant for us to eat at that would make everyone happy.",experience,pre-labelled (AI); keyword sample (experience)
+">This is a very weird thread.
+
+I agree; you post some revenue numbers to try and prove a point that theses businesses have a lot of money. When someone reminds that revenue is not the same as profit, you state the numbers aren't relevant.
+
+Companies try to cheap out all the time, in incredibly stupid ways. Especially when they are thin margins, fat ones usually try and protect the cash cow.",opinion,pre-labelled (AI); random sample
+I used to wonder about the possibility of using thrusters to decelerate for impending crashes. I think for a substantial fraction of accidents that would be enough to massively reduce the risk.. but hopping over is an option I hadn’t considered practical.,opinion,pre-labelled (AI); keyword sample (experience)
+"Yep, and Koenigsegg Agera is just a glorified Ford T.",opinion,pre-labelled (AI); random sample
+"Looks nice, unfortunately I'll have to stick with however Google's alternative is currently called since Google Cast is the strictly better model for these types of devices in my view, compared to Airplay.
+
+Google Cast runs the player on the cast target and only uses the device that initiates playback as an optional remote control that can be disconnected without interrupting streaming.
+
+Airplay requires the controlling device to remain available throughout, in my experience; receiving a phone call, watching other media etc. on my phone isn't possible without interrupting playback. (This might have changed in one of the last versions, but that needs app support, and not knowing what to expect on a per app basis is at least as bad, if not worse.)",experience,"pre-labelled (AI); keyword sample (experience); technical explanation, but the point rests on own playback interruptions"
+"Hear, hear. We had the entirety of human knowledge available online for decades now. Are people more educated? Nah, cos most people aren't interested in looking for much beyond validation.
+
+Perhaps me finding your comment and replying has similarities but at least this is validation of curiosity.
+
+I love llms cos history isnt typically indexed by the sort of questions i wanna ask but an llm can cut a wide array of sources by an arbitrary metric and i can keep poking for more and more.
+
+I see a wikipedia parallel. There's peeps among us that will 2am doom scroll wikipedia, peeps that will only do that same on social media and peeps who do a bit of both.",opinion,pre-labelled (AI); keyword sample (experience)
+"Regardless of how the orchestration infrastructure question is answered by reality, stats show a significant increase this year in the number of CVEs and how fast they get exploited once known:
+
+- https://cloud.google.com/blog/topics/threat-intelligence/vulnerability-discovery-and-exploitation-trends-in-the-ai-era
+
+- https://www.microsoft.com/en-us/security/security-insider/threat-landscape/2026-digital-defense-report",evidence,pre-labelled (AI); extra evidence batch
+"At these pressures, it doesn't matter to the human body what is in the tank if it is at all compressible. If the tank fails, its gonna go badly.
+
+Just for reference this is 50% more pressure than the pressure that crushed that submarine at the titanic.",evidence,pre-labelled (AI); random sample; figure tied to a public event (Titan sub)
+"They probably meant things like LLVM and the various optimization passes. None of those are verified, there’s probably all sorts of correctness issues, and yet it’s still ok. Rust’s usage also has issues and bugs emitting the right intermediate form for LLVM to consume and usually also it’s ok.
+
+Would it be nice if we had even higher level of quality? Yes. But what’s neat is we have empirical evidence - Rust code does achieve the memory safety goals over C++ even though there’s bugs in the compiler. That’s why Rust is very quickly eating all things C and C++. A huge amount of value that the industry would just be unable to access for a long time if you waited for everything to be formally proven.",opinion,pre-labelled (AI); keyword sample (experience)
+I always wanted an immovable laptop that is closer to phone size. I'm just a worst of both worlds kids of guy.,opinion,pre-labelled (AI); random sample
+"from https://blog.claroty.com/team82/research/freeze-the-controller-defrost-the-food-uncovering-vulnerabilities-in-danfoss-refrigeration-controllers :
+
+> Our research uncovered a hidden ""code-of-the-day"" authentication mechanism that could be abused to bypass normal authentication
+
+> Our analysis began by examining the internet exposure of these devices, where we identified thousands of publicly accessible management interfaces
+
+> (shell injection vulnerability in management interface)
+
+This is how we used to vibe-code before we had LLMs.",evidence,pre-labelled (AI); random sample
+i have had a dropped filling for almost 2 decades. It is my test for if a dentist is crap. The number that dont even mention it is surprising.,experience,pre-labelled (AI); keyword sample (experience)
+"> more than one password manager
+
+I'm sorry, what?  Who has more than one password manager (other than a personal/work split)? That's absurd and not something anyone I've heard of would put up with",opinion,pre-labelled (AI); keyword sample (experience)
+"Apple refused service and OP was left holding the bag.
+
+Amazon sent me fake RAM a couple times years ago. It was a space blanket in a fake crucial RAM box. I’m 99% sure Amazon took the return and shipped the retuned space blanket on the next order.",experience,pre-labelled (AI); extra evidence batch
+"This is such a pristine pelican. Let me say it here first folks, AGI is here.",opinion,pre-labelled (AI); random sample
+"I usually listen to what doctors have to say, and trust their judgment. Especially since I have next to no formal education in bio or medicine.
+
+I did resort to ""self-diagnosis"" once, though: for R-CPD (no-burp syndrome). Most doctors simply don't know this condition exists. I brought it up with my GP (whose referral I needed to see a specialist in Ontario), prepared for some pushback, but was pleasantly surprised that he did some brief research and then helped me forward.
+
+Then again, I may have been lucky. I still hear stories of doctors who are less than cooperative when patients bring them ""self-diagnoses"", even for something as open-and-shut as R-CPD. But if most of those ""diagnoses"" are BS, then I can empathize with the docs, too.",experience,pre-labelled (AI); keyword sample (experience)
+"> Speaking from my own experience, my team is hiring several senior SREs, and we're not seeing a flood of qualified candidates. We get a flood of resumes, but the signal to noise ratio is low. The candidates' CVs claim the requisite qualifications, but when we actually evaluate the candidates for role fit, we are finding that their actual skills aren't those we need for success in these roles.
+
+This also seems like a bad faith comparison. My team is hiring several senior SREs and we received ~8000 applications for all of the postings combined. Of course the signal/noise is low when you have that many applications to filter through. The takeaway isn’t “the US doesn’t have enough qualified candidates”, it’s “we need a better way to sift through these candidates to find the right ones”",experience,pre-labelled (AI); keyword sample (experience)
+"As a programmer, I think your reaction is most people’s reaction- it’s ok but if I want good work I have to retrace its steps. Many programmers I know use AI, but our work isn’t scrutinized like I imagine a lawyers would be. Software breaking is on the rise, accountability in tech is on the decline, so using AI is all upside since no one checks any more if users actually like and use the product.",opinion,"pre-labelled (AI); keyword sample (experience); credential + ""many programmers I know"""
+"ISO 27001 means they have processes in place that proof that risks are monitored and continuous improvements are being made. ISO 27001 means they have policies, and can show those policies to the auditor.
+
+Never assume that having that certification means that shit is actually secure. It just means the company can do the audit dance.",opinion,"pre-labelled (AI); random sample; explains a named standard - no link, figure or quote"
+"1% failure rate for space rockets might count as very reliable, but if 1% of all cars explode then we are in for a ride.",opinion,pre-labelled (AI); extra evidence batch
+"> The biggest one is the program itself is racist as hell.
+
+I don't know how to best word this in a sensitive, nuanced discussion, but it goes both ways too.
+
+I've noticed that a lot of Indian management are blatantly nepotistic (not sure if that's the word) about hiring and promoting Indians, giving them unfair treatment above American workers. Unless those Indians are from lower castes, in which case they're treated like shit.",opinion,"pre-labelled (AI); keyword sample (experience); ""I have noticed"" generalisation, no event"
+"I worked at Tesla when they announced the Roadster 2 and said they’d start production. That never happened. Funny to see everyone eat this up, let’s see when or if they deliver.",experience,pre-labelled (AI); random sample
+"I'm still embedded in the OpenAI ecosystem, but man, when I try out Mistral, it is snappy!  Like basically instant responses that seem faster and better in quality than ChatGPT on instant mode.  I'm impressed.",experience,pre-labelled (AI); random sample
