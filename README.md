@@ -39,9 +39,14 @@
 
 ## What This Does
 
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
-
+TakeMeter sorts **Hacker News comments** by *what the comment's point rests
+on*. `evidence` comments point at something you can check yourself: a link, a
+quote from the article, a public figure. `experience` comments rest on
+something the writer actually did or saw. `opinion` comments rest on the
+writer's say-so. It's not a quality score, since plenty of great HN comments
+are well-reasoned opinions. The use I have in mind is long threads: being able
+to pull out the comments that cite something, or the ones from people who've
+actually done the thing, without reading 1,000 replies.
 
 
 ---
@@ -168,45 +173,107 @@ is `opinion`. The post above is `opinion`.
 <!-- Where you collected from, how you labelled, your counts, and three hard
      cases. -->
 
-**Where the posts came from:**
+**Where the posts came from:** 16 front-page Hacker News threads from
+October 2026, pulled through the public Algolia HN API (no login, no key).
+The topics are deliberately mixed: the Tesla Roadster, Mistral Large 4,
+cancer advice, Cloudflare buying Deno, passkeys, dentists, Amazon pricing,
+H-1B policy, a supermarket-fridge hack, LLM capability, Utah's VPN law, a
+Rust compiler bug, Apple HomeView, hosting dinner parties, and a hardware-wallet
+breach. I kept whole comments of 40–900 characters and dropped exact
+duplicates. Scripts and the thread IDs are in [`collect/`](collect/README.md).
 
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+I first tried r/nba, but Reddit blocks unauthenticated reads now. HN turned
+out to suit this taxonomy better anyway, because citing sources and "I worked
+at X" are both normal moves there.
+
+**How I labelled them:** Every row was **pre-labelled by AI** (Claude Code)
+applying the written rules in the Label Taxonomy section, and the note column
+says so on every row. Full disclosure is in How I Used AI below. Rows that
+needed a judgement call carry a note in the `note` column saying which rule
+decided them (72 of 307 rows).
+
+- **Sampling.** I built a 280-comment pool: 140 random, 70 matching
+  evidence-ish keywords (links, "according to", percentages) and 70 matching
+  experience-ish keywords ("I worked", "my wife", "in my experience"). Keywords
+  only chose what got *read*. About half of the keyword-sampled comments (104
+  of 200) ended up with a different label than the keyword suggested.
+- **What I skipped (15):** pure questions with no claim ("Break into your
+  comma? Google-fu is letting me down"), bare links, and thank-yous. None of
+  my three labels describe them. They were about 5% of what I read.
+- **Balance fix.** After the first 280, `evidence` was thinnest (48), so I
+  pulled 70 more evidence-keyword candidates and labelled those (29 came out
+  `evidence`). That gave 335 usable rows with `opinion` at 53%, over my own
+  50% cap in criterion 4. So I randomly held back 28 `opinion` rows that had
+  no hard-case note. They're in `data/held_back_opinion.csv`, not in
+  `labels.csv`, in case unit 6 needs them.
+- **Finding:** in the purely random slice, **99 of 121 usable comments (82%)
+  were `opinion`**. HN left alone is way over the brief's 70% cap. Without
+  targeted sampling this dataset would train a model that just says `opinion`.
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `evidence` | 77 | 25.1% |
+| `experience` | 80 | 26.1% |
+| `opinion` | 150 | 48.9% |
+| **Total** | 307 | 100% |
 
 **Three hard cases**
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
+**1. "In my experience" with and without an account** (`experience` vs
+`opinion`, my hardest boundary)
+> *The post:* "Buying a car is the easy part. In my experience, new cars have
+> new car problems, but old cars have old car problems. There's no clear
+> winner in every metric, just trade offs."
+>
+> …compared with: "In my experience, the customer-friendly return experience
+> is withering. I ordered a small table about a year ago that didn't ship with
+> the correct hardware. […] I had to call to get a refund […] The customer
+> service representative was pretty reluctant to accept it […]"
+>
+> *Could have been:* both start with the exact same phrase, so either both
+> `experience` or both `opinion`.
+>
+> *I chose:* `opinion` for the car one and `experience` for the table one.
+> The decision rule says the phrase doesn't count, only a specific event does.
+> The table comment has a specific event (wrong hardware, a refund call, a
+> reluctant rep); the car comment is a generalisation. This pair is the reason
+> I wrote the rule. It's also exactly the kind of pair a model could get wrong
+> by keying on the words "in my experience".
 
-**1.**
-> *The post:*
+**2. A memory of watching TV that's really a citation** (`experience` vs
+`evidence`)
+> *The post:* "I remember seeing a TV program[1] where the UK govt had proposed
+> some hare-brained key escrow thing (this is circa 2000 ish) […] The expert
+> they had on to explain the drawbacks of the scheme was Whitfield Diffie[2]
+> […] Diffie explained that there is essentially no security measure that is
+> effective if you create a prize of infinite value. […] [1] "Newsnight" on BBC
+> [2] As in Diffie-Hellman etc https://en.wikipedia.org/wiki/Whitfield_Diffie"
 >
-> *Could have been:*
+> *Could have been:* `experience`, since it's framed as "I remember seeing",
+> a first-hand memory.
 >
-> *I chose, because:*
+> *I chose:* `evidence`. The point rests on what a named public figure said on
+> a named programme, which you could look up without trusting the writer. The
+> writer's memory is just how they found it. That's the "`evidence` beats
+> `experience`" rule.
 
-**2.**
-> *The post:*
+**3. A link that isn't support** (`evidence` vs `opinion`)
+> *The post:* "Maybe embedding things about a derivative AI's company will be
+> the Reflections on Trusting Trust[0] vulnerability of the 21st century.
+> [0] https://people.cs.umass.edu/~emery/classes/cmpsci691st/readings/Sec/Reflections-on-Trusting-Trust.pdf"
 >
-> *Could have been:*
+> *Could have been:* `evidence`, because it has a link to a real paper.
 >
-> *I chose, because:*
-
-**3.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+> *I chose:* `opinion`. The link only defines a term. The claim itself
+> ("maybe this will be…") is speculation that the paper can't back up, since
+> the paper is from 1984. I applied this the same way to joke links, links to
+> Wikipedia definitions, and "you'd like this chapter" recommendations.
+> **It's the case I expect the model to get wrong most.** 45 of 77 `evidence`
+> rows contain a URL, but so do 17 `opinion` rows and 5 `experience` rows.
+> "Has a link" is an easy shortcut for a model to learn instead of "rests on
+> something checkable".
 
 ---
 
@@ -237,19 +304,48 @@ of next unit's variance. -->
      workflow and disclosing it costs you nothing. Not disclosing it is the
      problem. -->
 
-**Moment 1**
+I did this unit with **Claude Code** (Anthropic's coding agent) working in
+this repo. It wrote the collection scripts, set up the Python 3.12 venv (my
+machine only had 3.14, which the pins don't support), did the labelling pass,
+ran the notebook, and drafted this write-up from my direction. Two moments
+that changed the project:
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+**Moment 1: stress-testing the taxonomy**
 
-**Moment 2**
+- *What I asked for:* eight short comments sitting on the boundaries between
+  my three draft definitions, which I then tried to label using only the
+  definitions.
+- *What came back:* five of the eight weren't clean. "In my experience
+  Postgres handles this fine up to a few billion rows" and "As someone who's
+  been a dev for 20 years: this is a fad" both read as `experience` under the
+  draft wording. A post mixing an anecdote with a cited ADA guideline could
+  have been either. Full table in [`taxonomy_stress_test.md`](taxonomy_stress_test.md).
+- *What I changed:* four rules before labelling anything real. The main one
+  is the hardest-boundary rule: `experience` needs a specific event, and
+  credentials and "in my experience" don't count. The others: personal
+  numbers stay `experience`, `evidence` beats `experience`, and vague appeals
+  ("studies show") are `opinion`.
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+**Moment 2: the first label count**
 
-**Pre-labelling disclosure:**
+- *What I asked for:* label the 280-comment pool against the written rules,
+  put a note on every judgement call, then count.
+- *What came back:* 151 `opinion` / 68 `experience` / 48 `evidence`. That was
+  under my own 50-row floor for `evidence` and over my 50% `opinion` cap.
+  Broken down by sampling source, the purely random comments were 82%
+  `opinion`.
+- *What I changed:* instead of loosening the `evidence` definition to get
+  more of it, I sampled 70 more evidence-keyword candidates and labelled them
+  under the same rules, then held back 28 random `opinion` rows. I kept the
+  stricter definition because a looser `evidence` label would have meant
+  "has a number in it", and that isn't what I want the model to learn.
+
+**Pre-labelling disclosure:** **All 307 rows in `labels.csv` were labelled by
+Claude Code**, applying the rules in this README. Every row's note starts with
+`pre-labelled (AI)`, and 72 rows also have a note naming the rule that decided
+a hard call. The criteria in `criteria.md` were also drafted with Claude Code,
+before any labelling or training. The commit history shows they were filed
+first.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 

@@ -18,5 +18,6 @@ Timeboxed helper scripts, kept for reproducibility. Not part of training.
    added when `evidence` came out thinnest.
 
 Keywords only decided which comments got *looked at*. Every label was assigned
-by reading the comment against the rules in the README — about 40% of the
-keyword-sampled comments ended up as a different label than the keyword hinted.
+by reading the comment against the rules in the README — about half of the
+keyword-sampled comments (104 of 200) ended up as a different label than the
+keyword hinted.
