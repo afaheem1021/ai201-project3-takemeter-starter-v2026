@@ -1,0 +1,78 @@
+text,label,note
+yeah and it seems like a lot of those skills are concentrated in the reviews section.,opinion,pre-labelled (AI); random sample
+"There is plenty of capital, it is just not flowing.",opinion,pre-labelled (AI); random sample
+"Your definition for ""flying"" is hard irrelevant. Any toy plane that we do call ""flying"" flies only for seconds, but has concepts like lift / and / or thrust and / or aerial control thru different ways like aerodynamic stability or in-air thrust. So did the first aeroplane too. Hell, even hyper-maneuvering multi-mach air-to-air missiles just ""jump"" with your worthless definition of ""flight"".",opinion,pre-labelled (AI); random sample
+"First of all, what’s wrong with the author, if you have to read through 14 paragraphs to finally reach the point where they actually write on the topic directly.
+
+Second, I think the article is really silly. If they are concerned that eventually service providers might restrict passkey authentication to authorized passkey providers, what prevents them from disabling password/TOTP authentication? That’s just silly. I’ll use passkeys while they are convenient. If service providers start disallowing my passkey provider, I’ll either switch to password/TOTP if that’s possible or just stop using the service whatsoever. What’s the big deal?",opinion,pre-labelled (AI); random sample
+"Thanks for pointing this out, I hadn't noticed that. I'd expect a large customer to be persuaded by Danfoss to upgrade within a year, especially before publishing the details of the vulnerability, so you're probably right.",opinion,pre-labelled (AI); random sample
+"C++ still doesn't have a sane modern pattern for tagged unions. If you want to define a type to represent, say, a simple parse tree, then Rust makes that easy and obvious, whereas C++ offers you a hundred options, all of which suck.",opinion,pre-labelled (AI); random sample
+"Fair enough, if the code could be promoted in the first place, what's the value anyways?",opinion,pre-labelled (AI); random sample
+I think Amazon might have induced this problem somewhat. Most retail stores have just stopped stocking niche items because people just buy them from amazon and it frees up a lot of floorspace they could use to stock high sales volume items instead.,opinion,pre-labelled (AI); random sample
+"You don't need remote command and control to tell you if your single truck chiller is working, you can just go look at the thermostat. But a company needs it to confirm that the chillers are working and at a safe temperature across all 1,000 trucks in their fleet.",opinion,pre-labelled (AI); random sample
+"I’ll take “Things You Learn In Introduction to Logic” for 500, Alex.
+
+In places where supposedly most of the people are in engineering or software, I’m surprised how often 1) people have to point this out, 2) people are willing to loudly pronounce their lack of basic logical skills.",opinion,pre-labelled (AI); random sample
+"Words matter, so which one would you use for a person with sexual attraction to a minor?",opinion,pre-labelled (AI); random sample
+">  there being a whole underclass of workers who can't just freely move between jobs,
+
+I think you hit the nail on the head here. The job switching process for foreigners should be easier.",opinion,pre-labelled (AI); random sample
+"> if you require attestation you don’t require any specific provider. I.e. ban vendor lock-in: if I have a key, I should be able to use it, and move my passkey to another one if I need to.
+
+Unfortunately this is fundamentally at odds attestation: If you trust anybody capable of providing a syntactically valid signature, it's not attestation anymore.
+
+You can try and set up a neutral clearinghouse vetting attestation providers, but that itself will probably become a centralizing force itself, requiring expensive audits etc. – think web PKI certificate authorities, but even more complex (as you need keys in shipped end user devices, not just somebody's data center HSMs).
+
+I think shunning attestation is largely the right move, with a very short list of exceptions (high trust e-signatures, high value bank transactions but not daily payment confirmation etc.)",opinion,pre-labelled (AI); random sample
+"Thats a US thing;
+in Europe dentists do not try to ""upsell"" you any stuff, usually; for sure there are some shady practitioners, but their number is small. This behaviour is induced to how the local health schemes over here work: The doctor usually does not have an incentive to sell more stuff.",opinion,pre-labelled (AI); random sample
+"Totally agree.  IMO it's mostly behind the scenes stuff though.
+
+I think some of the most impressive stuff to show someone from 2016 might be LLMs doing a summary of complex topics, followed by self-driving (actually) cars and intricate robots... but other than that there is no ""future magic"" touching the lives of every day people going on.
+
+Actually I'm pretty sure if you showed someone the latest and greatest from these big AI companies, these AI companions that can book flights, people would go ""Oh, so its like a smarter Siri"" and proceed to not care at all lol.",opinion,pre-labelled (AI); random sample
+"This is why you build transit for everyone. If you look at transit around the world (Japan, Singapore) you'll see transit that the old or infirm happily take. It's possible, you just need to believe that transit CAN be good for everyone! It doesn't and shouldn't be just for the ""young and healthy"".",opinion,pre-labelled (AI); random sample
+"> why now?
+
+Probably to inflict pain on the life of the voters so they can blame the government and manipulate the 2027 French presidential election in April. Maybe just a test.
+
+Same as the high velocity train being sabotaged again just in the Spain national day. Hybrid war.",opinion,pre-labelled (AI); random sample
+It's not the death of open source. It will probably be the death of small company open source. Either 100% community/non profit or 100% big corporation and users check corporate alignment with project goals.,opinion,pre-labelled (AI); keyword sample (evidence)
+"Well, the exact same question applies to biology. If humans are conscious, is all life conscious? If it's just the brain that's conscious, is every part of the brain conscious? Are individual neurons conscious? How about other cells in your body, or tissues or organs? Our stomach has more cells and more neurons than many full animals - is our stomach conscious?
+
+The answer in the ""consciousness is a computation"" model is that consciousness can arise in any computational medium. But the model doesn't say that any computation is conscious - it says that consciousness is any of a set of specific computations, any computation with properties X, Y, Z whatever. So it's perfectly possible (according to this model) that a GPU running game graphics is not conscious, while a GPU running some future even more advamced LLM is conscious. Or a network of GPUs + storage + whatever.",opinion,pre-labelled (AI); keyword sample (evidence)
+"Imperfection isn’t evidence of ineffectiveness.
+
+Considering this has gone unflagged for 11 years... Finding a flaw in Rust’s safety guarantees doesn’t mean that they provide no benefit, over a programming language without them.",opinion,pre-labelled (AI); keyword sample (evidence)
+"Honestly, these costs are very reasonable considering what you get.
+
+The real crime is that Apple takes more as its mandatory fee and is only storing and moving bits. A good with essentially zero marginal cost.
+
+Fulfillment is hard.
+
+And, as much as people hate it, advertising is real value for a business owner.
+
+And given the high cost of financing and holding physical inventory, Amazon's referral fee is worth it for faster inventory turnover.
+
+Apple is the enterprise that borders on criminal. 30% to move bits. I haven't looked it up, but the margins on Apple's fees have to be outrageous.",opinion,pre-labelled (AI); keyword sample (evidence)
+Civil engineers are routinely called to work with materials like dirt and concrete whose properties cannot be guaranteed to much beyond 98% precision.,opinion,pre-labelled (AI); keyword sample (evidence)
+"The security requirements are generally hidden from users. I have never noticed different behaviour between my passkeys.
+
+But as I said, there are plenty of UX issues with passkeys, those UX issues however don't include getting your accounts hacked, phished, passwords lost in data breaches, etc, which I'd suggest are a lot worse.",opinion,pre-labelled (AI); keyword sample (experience)
+"I've been dreaming of this for a simple reason: the french prose combined with GLM 5.3 reasoning capabilities.
+
+GLM 5.3 is incredible because for the first time with an open-source model, it feels.. enough. I don't need much anymore, this model is great in everything. Except a thing : speaking french.
+
+If the benchmarks are true, I'd be glad to switch entirely to Mistral.",opinion,pre-labelled (AI); keyword sample (experience)
+"I'm surprised that there isn't more attention being paid to this question:
+
+How does dental (or medical) care differ when the person recommending the procedure directly benefits financially from it?
+
+I've had experiences with doctors who make exactly the same if they perform a $1,000 procedure or a $10,000 procedure, and I feel in general I'm likely to get better care in that scenario.
+
+(In the US) I regularly scrutinize and stress over the dentist's recommendations, as they are almost always the owner of the business as well as the head dental procedure recommender.",opinion,pre-labelled (AI); keyword sample (experience)
+"It's surprising this bug went unnoticed for so long, but at least it's easy to fix, since it's not a bug with the type system itself; it's just a bug in the compiler. The compiler should always have been rejecting that code according to lifetime rules of Rust's type system, so the fix is to just make it reject the code, rather than having to change the fundamental rules of lifetimes.",opinion,pre-labelled (AI); extra evidence batch
+"We could also try something that has not yet been attempted: investing heavily in developing people who show signs of talent at an early age and streaming ALL children's education according to their capabilities and interests at a young age, in order to eventually bolster the available pool of highly talented people without having to rely on poaching talent from elsewhere in the world (depriving those countries of an opportunity to benefit from the highly talented people that they sweated and paid to train).",opinion,pre-labelled (AI); extra evidence batch
+"The US is biased to favor the top half of society. Hence why there is a lot of vocal poorer people and a lot of low profile wealthier people (I'm not including the 1% or even the 5% in this).
+
+When you are in the 75%ish of the US, it's very easy to make a case that life in the US is better. But we don't really talk about that because it's pretty taboo when poorer people are struggling much more than they would in Europe.",opinion,pre-labelled (AI); extra evidence batch
