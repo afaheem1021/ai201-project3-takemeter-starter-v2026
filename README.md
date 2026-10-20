@@ -54,33 +54,110 @@
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
-### `label_one`
+All three labels answer one question: **what is this comment's main claim
+resting on?** Not whether it's right, not whether it's polite — just what kind
+of support it offers.
 
-**Definition:**
+### `evidence`
 
-**Example 1:**
->
-
-**Example 2:**
->
-
-### `label_two`
-
-**Definition:**
+**Definition:** The comment's point rests on something outside the comment
+that a reader could check without trusting the writer — a link, a quote from
+the article or docs, or a specific figure, date, law or spec tied to a public
+source.
 
 **Example 1:**
+> \> I'm happy if this means Deno is able to get a second impulse
 >
+> Bad news, sorry, the article says:
+>
+> \> We will support the Deno runtime for another year with monthly releases
+> containing bug fixes and security updates. After that year we will end our
+> development of the Deno runtime.
+>
+> Sounds like Celld will live on within workerd, Deno is over.
 
 **Example 2:**
+> if you're not locked to javascript you could use python with pep-723[1] to
+> declare inline dependencies
 >
+> 1: https://peps.python.org/pep-0723/
+
+### `experience`
+
+**Definition:** The comment's point rests on a concrete first-hand account —
+something the writer (or their workplace or household) actually did, saw, or
+had happen to them, specific enough that you could picture it.
+
+**Example 1:**
+> Yeah I'm absolutely the market for this thing. We have an old Google Home
+> that we use as a digital photo frame and Google has progressively destroyed
+> every other piece of functionality we once used on it.
+>
+> My only complaint is that a truly environmentally friendly company (like
+> Apple claims to be!) would make this OS available for old iPads. […]
+
+**Example 2:**
+> Maintaining old hardware to 2026 security requirements is damn near
+> impossible, and what constitutes "old" is very variable; HOWEVER putting
+> them behind a dedicated VLAN+firewall+VPN is not that hard.
+>
+> I've helped do it for industrial equipment (win95 controller or something)
+> that couldn't be upgraded without spending millions, but it sill required
+> pulling out the old 10base2 network and installing cat 6 cables in a factory
+> floor and new switches.
+
+### `opinion`
+
+**Definition:** The comment asserts a claim, judgment, prediction or joke and
+offers no support beyond the writer's own say-so or reasoning — nothing to
+check and no first-hand account.
+
+**Example 1:**
+> All Musk cares about is Mars. The CT is going to be a Mars vehicle, that's
+> why it looks like that by and large.
+>
+> And this tech is simply part of the Tesla/SpaceX merge, and right in line
+> with flamethrowers, tunnels, and chainsaws. It's going to funnel loads of
+> cash his way, which was the idea.
+
+**Example 2:**
+> TOTP is just as phishable as a password and offering it today is as much
+> security malpractice as SMS.
+>
+> For all their faults, passkeys/webauthn is the future and you can absolutely
+> just use nitrokeys you control, with backups, as you like.
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `experience` vs `opinion`.
+
+HN is full of comments that *wave at* experience without giving one: "In my
+experience…", "As someone who's done this for 20 years…", "Every team I've
+been on…". The borderline post I found while reading:
+
+> Even projects that you could have done without having to look anything up?
+>
+> In my experience, it seems to mostly save time on things you don't really
+> know that well, whilst depriving you of the chance to learn new things.
 
 **The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
+
+**It's `experience` only if the comment describes a specific thing that
+happened** — a job, a setup, a place, an event, something you could picture.
+The phrase "in my experience", a job title, or years of seniority on their own
+are not an account; they're a credential attached to a claim, and the comment
+is `opinion`. The post above is `opinion`.
+
+**Two smaller rules that came out of the stress test:**
+
+- **`evidence` beats `experience`.** If a comment has both an anecdote and a
+  checkable item, and the checkable item is what carries the point, it's
+  `evidence`. Personal numbers ("our p99 went from 12ms to 30ms") are still
+  `experience` — you can't check them, you have to trust the writer.
+- **Quoting the comment you're replying to isn't evidence.** HN replies often
+  open with `> parent's words`. Only a quote from the article, docs, or another
+  outside source counts. Vague appeals ("studies show", "everyone knows") are
+  `opinion`.
 
 
 
