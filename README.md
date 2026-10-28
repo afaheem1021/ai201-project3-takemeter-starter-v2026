@@ -547,11 +547,19 @@ two posts.
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | ≥ 0.65 on every seed | **MISSED** | Only seed 42 cleared it (0.660). Seeds 7 and 2024 came in at 0.532 and 0.596. The criterion says every seed, so one out of three is a miss. |
+| 2 | `experience` F1 | ≥ 0.50 on every seed | **MISSED** | 0.286 / 0.000 / 0.000. Not close on any seed. |
+| 3 | `evidence` F1 | ≥ 0.70 on every seed | **MISSED** | 0.700 / 0.286 / 0.667. Seed 42 hits it exactly, seed 2024 is 0.033 short, and seed 7 is way off. The generous reading is "2 out of 3 are basically there", but that's exactly what "every seed" was written to rule out. |
+| 4 | Label balance | no label > 50%, every label ≥ 50 rows | **MET** | `labels.csv` is 48.9% `opinion`, and the smallest label is `evidence` with 77 rows. This one is about the file, not the model, so it's the same on every seed. |
+| 5 | Confidence gap | most-sure third ≥ 0.15 more accurate than least-sure third, every seed | **MISSED** | 0.267 / 0.467 / 0.133. Seed 2024 is short by 0.017, which with 15 posts per third is less than one post (one post = 0.067). Still a miss. I'm not revising it, because it was perfectly measurable. I just didn't hit it. |
+
+I did the "argue the opposite verdict" thing for criterion 3, since it's the
+one that's tempting to call MET. The best case for MET: seed 7 is an
+outlier, the other two average 0.68, and 12 test posts is too few to judge
+on. But I picked "every seed" in unit 5 *knowing* `evidence` would only have
+12 test posts, and I wrote in `criteria.md` that the target had to survive
+that. If I let a 0.286 slide because it's inconvenient, the criterion stops
+meaning anything. So it stays MISSED.
 
 **Diagnoses**
 
@@ -564,7 +572,85 @@ two posts.
      have that can tell a LABELLING problem from a MODEL problem, and this
      section is graded on whether you used it that way. -->
 
+Four misses, and I think they're mostly **one cause showing up four times:
+the model is barely trained, so it falls back on the biggest label.** Here's
+why I think that, and where each miss fits.
 
+**The shared cause: undertraining, which shows up as "always say opinion"**
+
+- On seed 7 the model said `opinion` for 45 of 47 posts. Saying `opinion`
+  for everything would score 23/47 = 0.489. Seed 7 scored 0.532, which is two
+  posts better than not having a model at all.
+- The training log (section 6 output in the notebook) shows training loss
+  ending at 0.84–0.97. For 3 labels, a model that knows nothing sits at
+  ln 3 ≈ 1.10. Validation loss went down on every epoch for every seed
+  (e.g. seed 42: 1.013 → 0.973 → 0.951) and never flattened out. It was
+  still learning when the run stopped.
+- The model's confidence is about 0.5 whether it's right or wrong (seed
+  2024: 0.484 when right, 0.472 when wrong). On a 3-label task that's barely
+  above a shrug.
+- 3 epochs × 14 batches is **42 training steps**, total. That isn't much to
+  learn a boundary like "a specific event vs. a general claim" from 214
+  comments.
+
+**Criterion 2 (`experience` F1), the biggest miss.** Model problem, not a
+labelling one. Three pieces of evidence:
+1. *The matrix.* 34 of 36 real `experience` posts (all seeds) went to
+   `opinion`, and 0 opinions went to `experience`. The notebook says a
+   lopsided direction like that "usually points at your labelling", so I
+   checked that next.
+2. *The agreement report.* It's the only thing I have that can tell those two
+   apart, and it says the labelling is fine on this boundary. The staff
+   version of experience-vs-opinion is reaction-vs-hot_take, and I had zero
+   disagreements on it, including all four HARD posts that sit right on it.
+   If I'd been applying "specific event vs. general claim" two different ways,
+   that's where it would have shown up.
+3. *The baseline.* The bare-names zero-shot model, with no training at all,
+   found 10 of the 12 `experience` posts in this exact test split. So the
+   signal is in the text and it can be reached. My model just didn't get
+   there in 42 steps.
+
+So this is "a task the model can't reach from this much data" plus too few
+updates, *not* "a boundary I applied inconsistently". Having fewer
+`experience` examples (56 in train vs 105 `opinion`) makes the pull towards
+`opinion` worse, but `evidence` has even fewer (53) and still gets predicted,
+so count alone doesn't explain zero predictions. One thing I flagged in unit 5
+probably doesn't help either: 36% of `experience` rows get cut off at 128
+tokens, so the model sometimes doesn't see the end of the story.
+
+**Criterion 3 (`evidence` F1).** Mostly the same collapse (20 of 36 misses
+across seeds went to `opinion`, and only 3 opinions went to `evidence`), with
+some genuine difficulty on top. This is the one place the agreement report
+*does* point at labelling: my only staff disagreement (sp_014) was the
+"is the fact support or decoration?" question, which is the same question as
+my evidence-vs-opinion rule about links that don't back the claim. 17
+`opinion` rows in `labels.csv` contain a URL, and 45 of 77 `evidence` rows do.
+So part of this boundary is genuinely hard and my labelling there is a bit
+literal. But if inconsistent labels were the main problem I'd expect errors
+in *both* directions, and they almost all go one way. Seed 7 (2 of 12 caught)
+is the collapse. Seeds 42 and 2024 (7 of 12 each) are probably the real
+ceiling of the hard part.
+
+**Criterion 1 (accuracy).** A side effect of the above. With half the test
+set being `opinion`, a model that mostly says `opinion` lands around
+0.5–0.66 depending on how many `evidence` posts it happens to catch on that
+split. The 12.8-point spread across seeds is the notebook's "too small or
+too lopsided" warning, and I think "undertrained" is a third reason it
+swings that much. A model this unsure flips on small changes in the split.
+
+**Criterion 5 (confidence gap).** Two causes. First, the granularity
+problem I already worried about in `criteria.md`: one post moves a third by
+0.067, and seed 2024 missed by less than that. Second, the same root cause:
+when every prediction is between about 0.45 and 0.55 confident, sorting by
+confidence is close to sorting at random. The two seeds that passed (0.267,
+0.467) don't convince me the confidence score means much. They mostly show
+the gap is noisy.
+
+**What this points at for the fix:** the assignment says diagnoses usually
+don't point at training settings. Here I think this one actually does. The
+agreement report clears the labels on the boundary that failed worst, the
+baseline shows the text has the signal, and the loss curve shows the model
+stopped while it was still improving. So my one change is **more epochs**.
 
 ---
 
