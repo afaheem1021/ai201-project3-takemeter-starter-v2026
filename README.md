@@ -400,6 +400,19 @@ first.
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
      prediction made afterwards isn't one. -->
 
+(Written before running the baseline. To be honest, the notebook printed my
+trained accuracy at the end of unit 5, so I knew that one number, roughly
+0.66. I hadn't seen anything from the baseline.)
+
+My guess: the trained model wins on overall accuracy and on `opinion`,
+because it's seen 105 HN opinions and has learned that "just say opinion" is a
+safe bet here, while BART is reading three long definitions cold and will
+spread its guesses around. I think it'll also win on `evidence`, since links
+and `> quotes` are easy surface stuff to learn. Where I think the baseline
+might actually be close, or even win, is `experience`. An NLI model can kind
+of read "the writer actually did or saw something", and I remember my trained
+model didn't catch many of those.
+
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
      nothing — and that is a real finding, not a failure. Say it plainly. -->
