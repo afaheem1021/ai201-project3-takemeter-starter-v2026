@@ -289,7 +289,7 @@ tokens, seed 42. 70/15/15 stratified split done by the notebook. I never split
 
 **Device:** **`cpu`** (torch 2.14.1+cpu, Windows 11, Python 3.12.10), and
 `results.json` records the same. I ran sections 1–5 in this repo's `.venv`
-kernel. Sections 6–7 are unit 6 and weren't run.
+kernel. Sections 6–7 are unit 6 and weren't run (they are now, see the unit 6 sections below).
 
 **Anything I changed from the defaults, and why:** No hyperparameters. The
 only edits to the notebook were `LABELS = ["evidence", "experience",
@@ -882,9 +882,10 @@ Yes, a lot more than I expected. Criteria 1 and 2 flipped from MISSED to
 MET, and every seed got better on accuracy (+19, +21, +19 points).
 `experience` went from basically never predicted (2 of 36 caught across
 seeds) to 30 of 36. The biggest off-diagonal cell used to be 34 `experience`
-posts called `opinion`. Now that cell is 3, and the confusion runs both ways
-on that pair (seed 42: 2 one way, 2 the other). The notebook calls that "the
-boundary itself is genuinely hard" rather than a lean. That's what I'd hoped
+posts called `opinion`. Now that cell is 3, and on seed 42 the pair is
+symmetric (2 each way), which the notebook reads as "the boundary itself is
+genuinely hard" rather than a lean. Across all three seeds it now leans
+slightly the *other* way: 9 opinions called `experience`. That's what I'd hoped
 for. The model stopped defaulting and started actually drawing the line.
 
 I'm fairly confident it's the epochs and not luck, because it's the same
@@ -912,11 +913,64 @@ Two honest caveats:
 
 <!-- For each criterion still missed: what you'd do, and why you stopped. -->
 
+**Criterion 3, `evidence` F1 ≥ 0.70 on every seed (after: 0.880 / 0.600 /
+0.750).** Seed 7 is the problem: 5 of its 12 `evidence` posts went to
+`opinion`. Across all seeds, 9 of the 10 `evidence` misses go to `opinion`.
+So the leftover error is the "is this link or number actually backing the
+claim?" boundary, probably, and the agreement report flagged that same question
+(sp_014) as the one place my labelling is a bit literal. What I'd do next is
+go back through every `evidence` and `opinion` row that has a URL in it
+(45 + 17 = 62 rows) and re-check them against the one rule. The question is
+whether the link carries the point or just defines a term or makes a joke.
+I'd also change the rule's wording the way I suggested for sp_014: the link
+has to support the conclusion *as stated*. I stopped because the brief allows
+one change, and I'd already used it on epochs, which was where the bigger
+problem was.
 
+**Criterion 5, confidence gap ≥ 0.15 on every seed (after: 0.133 / 0.467 /
+0.267).** Missed by the same 0.133 as before, just on a different seed
+(seed 42 this time). One post per third is 0.067, so this is one post short.
+The model's confidence does mean something now: it's 0.83 when right vs
+0.75 when wrong on seed 42, and the most-confident third is right 93% of the
+time on all three seeds. The problem is the bottom third on seed 42 is
+*also* right 80% of the time, because the model is just good on that split.
+Honestly, I think a "gap" criterion fails when the model gets better
+everywhere. If I wrote it again I'd make it "the most-confident third is at
+least 0.85 accurate", which is what I actually care about for pulling
+`evidence` comments out of a thread. I'm not revising it, though. It was
+measurable, and changing a target after missing it is exactly what the
+rules say not to do. The thing I'd actually try is a bigger test split
+(more data), so one post isn't worth 0.067. I stopped because more data
+means more labelling, and that's a different change from the one I made.
+
+**Also still broken, even though it isn't a criterion:**
+- **Overfitting at 10 epochs.** Validation loss started going back up after
+  epoch 7 on two of three seeds. The fix is early stopping, i.e. keeping the
+  best epoch instead of the last one. That's another training change, so I
+  left it.
+- **Seed spread is still 10.6 points.** With 12 `evidence` and 12
+  `experience` posts per test split, I don't think more training can fix
+  that. More rows can.
+- **Truncation.** 36% of `experience` rows still get cut at 128 tokens. It
+  didn't stop `experience` from working once the model actually trained, so
+  I care less about it than I did in unit 5, but I never tested it.
 
 **The gap between what I meant my labels to capture and what the model
 learned:**
 <!-- Two sentences. Your confusion matrix is the evidence. -->
+
+I meant the labels to capture *what a comment's point rests on*. After 3
+epochs the model had only learned "half of these are `opinion`" (34 of 36
+`experience` posts called `opinion`, 0 the other way). After 10 it has mostly
+learned the first-hand-account line, and now it slightly *over*-calls
+`experience` (9 opinions called `experience` vs 3 the other way, all seeds),
+so it's probably picking up on "I"/"we" story words more than on an actual
+event. The part it still hasn't got is `evidence` that rests on something
+subtler than an obvious link. 9 of its 10 remaining `evidence` misses go to
+`opinion`, and my guess, which I haven't checked post by post since the
+notebook doesn't save per-post predictions, is that those are the quote-
+and-figure ones. That's the shortcut I worried about in hard case 3 back in
+unit 5.
 
 
 
@@ -937,18 +991,18 @@ learned:**
 
      SUBMISSION CHECKLIST — unit 6
 
-       [ ] Baseline vs. Trained table, with your prediction written beforehand
-       [ ] Run Log — Before, five criteria across three seeds
-       [ ] Confusion matrix TYPED AS A MARKDOWN TABLE
-       [ ] A verdict on every criterion
-       [ ] A diagnosis for every miss, using the agreement report as evidence
-       [ ] Agreement Report with every disagreement adjudicated
-       [ ] One improvement, with Run Log — After
-       [ ] What's Still Broken
-       [ ] results_three_seeds_before.json, results_three_seeds_after.json,
+       [x] Baseline vs. Trained table, with your prediction written beforehand
+       [x] Run Log — Before, five criteria across three seeds
+       [x] Confusion matrix TYPED AS A MARKDOWN TABLE
+       [x] A verdict on every criterion
+       [x] A diagnosis for every miss, using the agreement report as evidence
+       [x] Agreement Report with every disagreement adjudicated
+       [x] One improvement, with Run Log — After
+       [x] What's Still Broken
+       [x] results_three_seeds_before.json, results_three_seeds_after.json,
            baseline_results.json and
            agreement_results.json committed
-       [ ] At least four new commits
+       [x] At least four new commits
        [ ] The SAME repository URL as last unit
 
      Do not delete and recreate this repository.
