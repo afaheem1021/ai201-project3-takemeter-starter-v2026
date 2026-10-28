@@ -389,12 +389,43 @@ first.
 <!-- Both models on the same posts. `python baseline.py --trained results.json`
      prints this table for you. -->
 
+Baseline is `facebook/bart-large-mnli` zero-shot, run on my machine (CPU).
+Trained is my unit 5 DistilBERT run (seed 42, CPU). Both are scored on the
+same 47 posts in `test_split.csv`, so it's like-for-like. The main baseline
+uses my definitions from `label_definitions.txt` (`baseline_results.json`).
+
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.383 | 0.660 | +0.277 |
+| Macro F1 | 0.363 | 0.573 | +0.210 |
+| F1 — `evidence` | 0.457 | 0.700 | +0.243 |
+| F1 — `experience` | 0.471 | 0.286 | -0.185 |
+| F1 — `opinion` | 0.160 | 0.733 | +0.573 |
+
+**Definitions vs. bare label names.** I also ran it once with no definitions
+file, so it only got the words `evidence` / `experience` / `opinion`
+(`baseline_results_bare_names.json`). I expected that to be worse. It wasn't:
+
+| Measure | Baseline, my definitions | Baseline, bare names | Trained (seed 42) |
+|---|---|---|---|
+| Overall accuracy | 0.383 | **0.596** | 0.660 |
+| Macro F1 | 0.363 | **0.591** | 0.573 |
+| F1 — `evidence` | 0.457 | 0.571 | 0.700 |
+| F1 — `experience` | 0.471 | 0.571 | 0.286 |
+| F1 — `opinion` | 0.160 | 0.632 | 0.733 |
+
+So my definitions were worth **minus 21 points** to the zero-shot model. Looking
+at the predictions, the definitions version called only 2 of 23 opinions
+`opinion`. It put 11 in `evidence` and 10 in `experience`. My `opinion`
+definition is basically a list of negatives ("offers no support… nothing to
+check and no first-hand account"), and an entailment model reading "This post
+is the comment asserts a claim… and offers no support…" doesn't really do
+"no". The other two definitions describe things that *are* there, so they win
+by default. These definitions were written for a person, and a person reads
+"no support" fine. They just turned out to be a bad prompt. The table above
+still uses the definitions run, because that's the baseline the assignment
+asks for, but the bare-names run is the stronger opponent and I'm keeping it
+in mind below.
 
 **What I predicted before I looked:**
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
@@ -416,6 +447,21 @@ model didn't catch many of those.
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
      nothing — and that is a real finding, not a failure. Say it plainly. -->
+
+My prediction was mostly right, and the part I flagged came true: training
+beat the baseline on accuracy, `opinion` and `evidence`, and *lost* on
+`experience` by 0.185 F1. But the +0.277 accuracy gap flatters it. Most of
+that gap is the baseline having a broken `opinion` prompt. Against the
+bare-names baseline, fine-tuning is only +0.064 on accuracy and actually
+slightly *behind* on macro F1 (0.573 vs 0.591). Basically, what my fine-tuning
+added on seed 42 was "lean hard on `opinion`, which is half the data." That
+pays off on accuracy and costs you `experience`. A general model that's never
+seen an HN comment found 10 of the 12 `experience` posts. Mine found 2.
+
+The baseline is also slow: a few seconds a post, so a couple of minutes for
+47, while the trained model gets through 46 validation posts in about 2 seconds
+(the notebook's `eval_runtime`). If I were
+running this over a 1,000-comment thread, that would matter.
 
 
 
