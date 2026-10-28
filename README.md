@@ -576,12 +576,27 @@ two posts.
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
+**Agreement rate:** 29 / 30 = 97%
 
 <!-- Nobody grades this number. A 60% who argues every disagreement from the
      stated rules beats a 95% who wrote "staff was right" nine times. Several
      of the 30 were chosen because they're genuinely ambiguous — you should be
      winning some of these. -->
+
+`my_staff_labels.csv` was committed (`9eb2f93`) before I had the staff file,
+and `agreement_results.json` is the output of `python agreement.py`. Same
+process as `labels.csv`: the 30 were labelled by Claude Code applying
+`data/staff_taxonomy.md`, and I went through them afterwards. That actually
+matters here. The check is supposed to tell me whether the labeller behind
+my 307 rows applies a written rule consistently, and this is the same
+labeller. (More on that in How I Used AI.)
+
+Staff marked 7 of the 30 as HARD. I matched them on 6: sp_005, sp_010, sp_019,
+sp_020, sp_028 and sp_029. I missed sp_014.
+
+I'm not keeping `data/staff_labels.csv` in the repo, since it's the answer key
+for everyone else in the course. `agreement_results.json` has everything the
+comparison needs.
 
 **Disagreements**
 
@@ -598,25 +613,62 @@ two posts.
      written rule two different ways on 30 posts, that is direct evidence about
      what you did across your own 200. -->
 
-**1.**
-> *The post:*
+**1. sp_014**
+> *The post:* "Times are down about 3% since the shoe rules changed, so
+> obviously the shoes are the whole story and the sport has a problem."
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `hot_take` / `analysis`
 >
-> *My call, and why:*
+> *My call, and why:* Staff, but I don't think it's as clean as their note
+> ("the canonical rule-1 case") makes it sound. My reasoning when labelling
+> was mechanical. The fact comes *first*, and "so" makes it the stated reason
+> for the conclusion. That's the shape of the rule-1 `analysis` example
+> ("Times are down 3% since 2017… That's the most likely single cause"), not
+> the `hot_take` one, where the conclusion comes first and the 3% is tacked
+> on. Rule 1 asks "does the fact carry the argument?", and the 3% is the
+> *only* premise in the post, so I said yes.
 >
-> *Which pile:*
-
-**2.**
-> *The post:*
+> Where I was wrong: the number can't carry the conclusion as written. 3%
+> plus one rule change could support "shoes are probably the main cause",
+> which is what the `analysis` example says. It can't support "the *whole*
+> story", and it says nothing at all about "the sport has a problem". That
+> second half has no fact under it. So most of what the post claims rests on
+> "obviously". The `hot_take` definition says "strength of feeling is not
+> support". "Obviously" is strength of feeling, and it's doing the work for
+> everything past "times went down".
 >
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
+> *Which pile:* **(b), the rule doesn't really say.** Rule 1's test is
+> whether the fact is "load-bearing", and its only illustration is about
+> word order (conclusion first = decoration). It doesn't say what happens
+> when a fact is the stated reason but only supports a much smaller claim
+> than the one made. I went with the word-order reading, staff went with
+> "does the fact support *this* conclusion". I'd fix the rule by adding
+> "load-bearing **for the conclusion as stated**". With that wording I'd
+> have labelled it `hot_take` without thinking twice.
 
 **What the pattern in my disagreements tells me:**
+
+With one disagreement out of 30 it isn't much of a pattern, but where it
+landed is useful:
+
+- **It's on "is the fact support, or decoration?"** That's the staff
+  version of my own `evidence` vs `opinion` boundary. My hard case 3 (a link
+  to the Trusting Trust paper that only defines a term) is exactly this
+  question, and I wrote a rule for it in unit 5. So the one place I slip is
+  the place where you have to judge whether a checkable thing actually
+  backs the claim, rather than just spotting that a checkable thing is there.
+- **Zero disagreements on `reaction` vs `hot_take`.** That's the staff
+  version of my `experience` vs `opinion` boundary: "is this about something
+  that happened to the writer, or a general claim?" Four of the HARD posts
+  sit right on it (sp_019, sp_020, sp_028, sp_029), and I matched staff on
+  all four, including sp_028 ("Third DNF this year"), where there's a
+  countable number but nothing argued from it.
+
+The obvious caveat: 30 short, made-up running posts are a lot easier than
+500-character HN comments, so 97% here doesn't mean 97% on my own data. But
+it is the only outside evidence I have, and it says the labeller is
+consistent on the experience-style boundary and a bit literal on the
+evidence-style one.
 
 
 
