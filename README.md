@@ -832,19 +832,78 @@ one).
 
 ### Run Log — After
 
+Same device (`cpu`), same seeds, same splits, 10 epochs. About 6.5 minutes
+per seed instead of 2. Raw numbers are in `results_three_seeds_after.json`.
+
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.65 on every seed | 0.851 | 0.745 | 0.787 | MET |
+| 2. F1 on `experience` | ≥ 0.50 on every seed | 0.783 | 0.815 | 0.769 | MET |
+| 3. F1 on `evidence` | ≥ 0.70 on every seed | 0.880 | 0.600 | 0.750 | MISSED |
+| 4. Label balance in `labels.csv` | no label > 50%, every label ≥ 50 rows | 48.9% max, 77 min | same file | same file | MET |
+| 5. Confidence gap (most-sure third minus least-sure third) | ≥ 0.15 on every seed | 0.133 | 0.467 | 0.267 | MISSED |
+
+Before and after, side by side:
+
+| Measure | Before (42 / 7 / 2024) | After (42 / 7 / 2024) |
+|---|---|---|
+| Overall accuracy | 0.660 / 0.532 / 0.596 | 0.851 / 0.745 / 0.787 |
+| Macro F1 | 0.573 / 0.321 / 0.452 | 0.844 / 0.727 / 0.779 |
+| F1 — `evidence` | 0.700 / 0.286 / 0.667 | 0.880 / 0.600 / 0.750 |
+| F1 — `experience` | 0.286 / 0.000 / 0.000 | 0.783 / 0.815 / 0.769 |
+| F1 — `opinion` | 0.733 / 0.676 / 0.689 | 0.870 / 0.766 / 0.818 |
+| Confidence gap | 0.267 / 0.467 / 0.133 | 0.133 / 0.467 / 0.267 |
+| Mean confidence when right | 0.51 / 0.51 / 0.48 | 0.83 / 0.85 / 0.79 |
+| Accuracy spread across seeds | 0.128 | 0.106 |
+| Criteria met | 1 of 5 | 3 of 5 |
+
+Confusion matrix after, seed 42 (section 7):
+
+| true \ predicted | evidence | experience | opinion |
+|---|---|---|---|
+| **evidence** | 11 | 0 | 1 |
+| **experience** | 1 | 9 | 2 |
+| **opinion** | 1 | 2 | 20 |
+
+All three seeds added together:
+
+| true \ predicted | evidence | experience | opinion |
+|---|---|---|---|
+| **evidence** | 26 | 1 | 9 |
+| **experience** | 3 | 30 | 3 |
+| **opinion** | 4 | 9 | 56 |
 
 **Did it help, and how do I know:**
 
 <!-- If it didn't, say so. Relabelling that didn't help is a genuinely
      interesting result and earns full credit. -->
 
+Yes, a lot more than I expected. Criteria 1 and 2 flipped from MISSED to
+MET, and every seed got better on accuracy (+19, +21, +19 points).
+`experience` went from basically never predicted (2 of 36 caught across
+seeds) to 30 of 36. The biggest off-diagonal cell used to be 34 `experience`
+posts called `opinion`. Now that cell is 3, and the confusion runs both ways
+on that pair (seed 42: 2 one way, 2 the other). The notebook calls that "the
+boundary itself is genuinely hard" rather than a lean. That's what I'd hoped
+for. The model stopped defaulting and started actually drawing the line.
+
+I'm fairly confident it's the epochs and not luck, because it's the same
+three splits as before, so the only thing that changed is how long it
+trained. And it moved in all three seeds, not just one. It also beats the
+stronger bare-names baseline now: on the seed 42 split, which is the only
+split the baseline scored, it's 0.851 vs 0.596 accuracy and 0.783 vs 0.571 on
+`experience`.
+
+Two honest caveats:
+- **It's starting to overfit.** On seed 42, validation loss bottomed out at
+  epoch 7 (0.671) and climbed back to 0.735 by epoch 10. Seed 7 was similar
+  (lowest at epoch 7). Training loss kept falling. So 10 is probably a couple
+  of epochs too many, and since the notebook keeps the last epoch rather
+  than the best one, I'm likely leaving a bit on the table. I didn't tune
+  this further because that would be a second change.
+- **The spread is still over 10 points** (0.106). Better than 0.128, but
+  with 12 `evidence` posts in each test split, one seed can still have a bad
+  draw.
 
 
 ---
