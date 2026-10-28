@@ -472,29 +472,69 @@ running this over a 1,000-comment thread, that would matter.
 <!-- Five criteria across three seeds. The notebook's section 6 prints the
      spread table; the Target and Verdict columns are yours. -->
 
+**Device:** `cpu` (torch 2.14.1+cpu, Windows 11), for all three seeds. Same
+settings as unit 5: DistilBERT, 3 epochs, lr 2e-5, batch 16, max length 128.
+Each seed gets its own 70/15/15 split, so 47 test posts each (12 / 12 / 23).
+Raw numbers are in `results_three_seeds_before.json`. Re-running section 5
+reproduced `results.json` exactly, so seed 42 on this machine is
+deterministic.
+
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.65 on every seed | 0.660 | 0.532 | 0.596 | MISSED |
+| 2. F1 on `experience` | ≥ 0.50 on every seed | 0.286 | 0.000 | 0.000 | MISSED |
+| 3. F1 on `evidence` | ≥ 0.70 on every seed | 0.700 | 0.286 | 0.667 | MISSED |
+| 4. Label balance in `labels.csv` | no label > 50%, every label ≥ 50 rows | 48.9% max, 77 min | same file | same file | MET |
+| 5. Confidence gap (most-sure third minus least-sure third) | ≥ 0.15 on every seed | 0.267 | 0.467 | 0.133 | MISSED |
+
+The spread table from section 6:
+
+| Measure | Seed 42 | Seed 7 | Seed 2024 | Spread |
+|---|---|---|---|---|
+| Overall accuracy | 0.660 | 0.532 | 0.596 | 0.128 |
+| Macro F1 | 0.573 | 0.321 | 0.452 | 0.252 |
+| F1 — `evidence` | 0.700 | 0.286 | 0.667 | 0.414 |
+| F1 — `experience` | 0.286 | 0.000 | 0.000 | 0.286 |
+| F1 — `opinion` | 0.733 | 0.676 | 0.689 | 0.057 |
+
+Accuracy moved **12.8 points** across seeds, which is over the 10-point line the
+notebook warns about. Seed 42, the one I happened to use in unit 5, turns out
+to be the *best* of the three. If I'd only had that one run, I would have
+thought criterion 1 was met.
 
 ### Confusion matrix
 
 <!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
      An image of a matrix earns nothing. -->
 
-| true \ predicted |  |  |  |
+Seed 42 (what section 7 prints):
+
+| true \ predicted | evidence | experience | opinion |
 |---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+| **evidence** | 7 | 0 | 5 |
+| **experience** | 0 | 2 | 10 |
+| **opinion** | 1 | 0 | 22 |
+
+And all three seeds added together (141 test posts), because seed 42 alone
+makes it look less bad than it is:
+
+| true \ predicted | evidence | experience | opinion |
+|---|---|---|---|
+| **evidence** | 16 | 0 | 20 |
+| **experience** | 0 | 2 | 34 |
+| **opinion** | 3 | 0 | 66 |
 
 **My biggest off-diagonal number, and what it means:**
 <!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
      direction. "7 real analysis posts were called hot_take and only 3 went the
      other way" is a direction, not just an error rate. -->
+
+10 real `experience` posts got called `opinion` on seed 42 (34 of 36 across
+all three seeds), and **zero** opinions ever went the other way. The model
+didn't learn the experience/opinion boundary at all. It basically learned
+"when in doubt, say `opinion`", and it was in doubt a lot. On seeds 7 and 2024 it never predicted
+`experience` even once. The `experience` column is 0, 0, 0 everywhere except
+two posts.
 
 
 
