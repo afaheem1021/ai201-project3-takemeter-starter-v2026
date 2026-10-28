@@ -377,6 +377,47 @@ a hard call. The criteria in `criteria.md` were also drafted with Claude Code,
 before any labelling or training. The commit history shows they were filed
 first.
 
+### Unit 6
+
+Same setup this unit. Claude Code ran `baseline.py` (both ways), executed the
+notebook's three-seed runs, labelled the 30 staff posts under
+`data/staff_taxonomy.md`, ran `agreement.py` once I'd got the staff file from
+my TF, and drafted the unit 6 sections with me. The order is in the commits:
+my 30 staff labels were committed before the staff answers came in, and the
+baseline prediction was committed before the baseline ran. Two moments where
+it changed what I concluded:
+
+**Moment 3: the bare-names baseline**
+
+- *The task:* run the baseline once with `label_definitions.txt` and once
+  without, like the brief suggests, and work out what the gap was worth.
+- *What came back:* the bare names won by 21 points (0.596 vs 0.383). Instead
+  of just reporting the number, it counted the predictions and pointed out
+  the definitions run only said `opinion` twice out of 23. Then it connected
+  that to my `opinion` definition being all negatives ("no support… nothing
+  to check"), which an entailment model handles badly.
+- *What I changed:* I kept the definitions run as the official baseline but
+  stopped treating my +0.277 as the real gap. Against the stronger
+  bare-names opponent, fine-tuning is basically even on macro F1. That
+  changed how I wrote "what the gap means".
+
+**Moment 4: labelling problem or model problem?**
+
+- *The question:* the notebook says a lopsided matrix "usually points at
+  your labelling". Was that true here? The evidence was the agreement report
+  and the baseline.
+- *What came back:* the opposite of what the notebook's hint suggested. The
+  staff version of my worst boundary (reaction/hot_take) had zero
+  disagreements, including the four HARD posts on it. The zero-shot model
+  found 10/12 `experience` posts in the same test split. And the training log
+  showed loss still falling at epoch 3. It also noticed that seed 7 said
+  `opinion` for 45 of 47 posts, which you can't see from the F1 numbers
+  alone.
+- *What I changed:* my improvement. The obvious move was relabelling the
+  experience/opinion boundary, because that's what the brief steers you
+  towards. With the agreement result in front of me, there wasn't anything
+  to relabel, so I changed epochs instead.
+
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
      Don't fill these in during unit 5.
@@ -672,8 +713,7 @@ stopped while it was still improving. So my one change is **more epochs**.
 `my_staff_labels.csv` was committed (`9eb2f93`) before I had the staff file,
 and `agreement_results.json` is the output of `python agreement.py`. Same
 process as `labels.csv`: the 30 were labelled by Claude Code applying
-`data/staff_taxonomy.md`, and I went through them afterwards. That actually
-matters here. The check is supposed to tell me whether the labeller behind
+`data/staff_taxonomy.md`. That actually matters here. The check is supposed to tell me whether the labeller behind
 my 307 rows applies a written rule consistently, and this is the same
 labeller. (More on that in How I Used AI.)
 
@@ -762,9 +802,33 @@ evidence-style one.
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** `EPOCHS = 3` → `EPOCHS = 10` in section 2 of the
+notebook. Nothing else. Same `labels.csv` (no rows added or relabelled), same
+learning rate, batch size, max length, base model and the same three seeds,
+so each seed gets the same split it got before. Then section 6 with
+`RUN_LABEL = "after"`. That's about 140 training steps per seed instead of
+42.
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** the shared cause in the diagnoses above.
+Validation loss was still dropping at epoch 3 on all three seeds, training
+loss had barely moved off chance, confidence was stuck around 0.5, and the
+model was defaulting to `opinion`. The agreement report didn't point at my
+labels on the boundary that failed worst (0 disagreements on the
+reaction/hot_take side), and the zero-shot baseline showed the `experience`
+signal is in the text. So relabelling had nothing obvious to fix. Adding 30
+`experience` rows was the other option I seriously thought about, but
+`evidence` has fewer training rows than `experience` and still gets
+predicted, so I didn't think count was the main thing.
+
+I ran sections 1–3 and then 6–7 for this, and skipped the single training
+run in 4–5. Re-running section 5 at 10 epochs would have overwritten my
+unit 5 `results.json`, which is the evidence for last unit.
+
+What I expect: `experience` actually gets predicted, and `opinion` recall
+drops from ~0.95 as it stops being the default. The risk is overfitting.
+214 rows for 10 epochs is a lot of passes over the same comments, and there's
+no early stopping (`save_strategy="no"` keeps the last epoch, not the best
+one).
 
 ### Run Log — After
 
